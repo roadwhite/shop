@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roadwhite.shop.mapper.ShopMapper">
+	<select id="query" resultType="com.roadwhite.shop.entity.Shop">
+		select * from shops
+	</select>
+	<insert id="insert"
+		parameterType="com.roadwhite.shop.entity.Shop">
+		insert into shops(name,price,num,url)
+		values(#{name},#{price},#{num},#{url})
+	</insert>
+	<select id="queryOrder"
+		resultType="com.roadwhite.shop.entity.order">
+		select * from `order`
+	</select>
+	<update id="updateorder"
+		parameterType="com.roadwhite.shop.entity.order">
+		update `order` SET
+		bool=#{bool}
+		where ordernum=#{ordernum}
+	</update>
+</mapper>
