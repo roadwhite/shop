@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>小张的小卖铺</title>
+<link rel="stylesheet" href="/layui/css/layui.css" media="all">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
+    <img id="wx" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3311430497,3400684501&fm=26&gp=0.jpg" />
+	<div id="list" style="position: absolute"></div>
+
+	<script src="/js/jquery-1.10.2.js"></script>
+	<script>
+		$.ajax({
+					url : "/getshop",
+					type : 'POST',
+					// 设置的是请求参数
+					// 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+					dataType : 'json',
+					contentType : 'application/json;charset=UTF-8',
+					success : function(data) {
+						console.log(data)
+												$("#wx").hide();
+						for ( let o of data) {
+							console.log(o)
+							var aa = "<img src=\""+o.url+"\"  style=\"float:left;\" alt=\""+o.name+"\" width=\"100%\" height=\"200\"/>"
+							var an = "<button type=\"button\" class=\"layui-btn layui-btn-normal layui-btn-radius \"style=\"margin: 2% 25%;\">购买</button>"
+							var a1 = "<tr>" + o.name +"  价格:"+o.price+ "元</tr>"
+							var ts = "<div class=\"t1\">" + aa + a1 + an
+									+ "</div>"
+							$("#list").append(ts)
+							$(".layui-btn").click(function(){
+								$("#wx").show();
+						})
+						}
+					}
+				})
+	</script>
+	<script src="layui/layui.js" charset="utf-8"></script>
+</body>
+<style>
+.t1 {
+	padding: 2%;
+	width: 45%;
+	float: left;
+}
+</style>
+</html>

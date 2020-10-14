@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>后台</title>
+  <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">后台</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="">用户</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          White
+        </a>
+        <dl class="layui-nav-child">
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">退了</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">所有商品</a>
+          <dl class="layui-nav-child">
+            <dd><a href="order.html">订单</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+      <div class="layui-form-item">
+    <label class="layui-form-label">商品名称</label>
+    <div class="layui-input-block">
+      <input type="text" name="title" id="name" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+    </div>
+  </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">价格</label>
+    <div class="layui-input-block">
+      <input type="text" name="title" id="price" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+    </div>
+  </div>
+         		<button type="button" class="layui-btn layui-btn-warm" id="upimg">上传图片</button>
+                <form id="file_form">
+                    <input type="file" id="file" onchange="showImg()" name="file">
+                    <img src="" alt="" id="img_id" >
+                </form>
+        <div class="layui-form-item">
+    <label class="layui-form-label">商品存量</label>
+    <div class="layui-input-block">
+      <input type="text" name="title" id="num" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+    </div>
+  </div>
+  <button type="button" class="layui-btn layui-btn-warm1" id="tijiao">提交商品</button>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © layui.com - 底部固定区域
+  </div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery-1.10.2.js"></script>
+<script>
+//JavaScript代码区域
+ function showImg(){
+            // var img_file =  $("#img_file").val();
+            var file =  $('#file')[0].files[0];
+            var re = new FileReader();
+            re.readAsDataURL(file);
+            re.onload = function(re){
+                $('#img_id').attr("src", re.target.result);
+            }
+        }
+$(document).ready(function(){
+    $('#upimg').click(function(){
+        $('#file').click();
+    });
+
+});
+$("#tijiao").click(function(){
+console.log()
+var formData = new FormData();
+formData.append('file', $('#file')[0].files[0]);
+formData.append('name', $('#name').val());
+formData.append('price', $('#price').val());
+formData.append('num', $('#num').val());
+	$.ajax({
+		url : "/post",
+		type : 'POST',
+		// 设置的是请求参数
+		// 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+       	contentType: false,
+        processData: false,
+		data:formData,
+		success : function(data) {
+			}
+			});
+		});
+</script>
+
+</body>
+<style>
+#file{
+    display: none;
+}
+</style>
+</html>
